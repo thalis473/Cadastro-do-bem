@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Cadastro</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="container">
+        <div class="card shadow p-3 mb-5 bg-white rounded ">
+            <div class="card-header bg-info text-dark">
+                <h1>Cadastre seus produtos</h1>
+            </div>
+
+            <div class="card-body bg-muted text-primary ">
+               <form  action="/produtos" method="POST" > 
+                <!--o name tem que ser igual ao do banco de dados-->
+                        <label for="nome" class="text-monospace  " >Nome do produto</label>
+                        <input class="form-control " type="text" id="nome" name="nome" placeholder="nome do produto">
+                        <br/>
+
+                        <label for="nome" class="text-monospace " >Valor Unitario</label>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text bg-info">R$</span>
+                            </div>
+                            <input type="number"  name="valor_unitario" id="valor_unitario"   aria-label="Quantia">
+                            <div class="input-group-append">
+                              <span class="input-group-text bg-info">.00</span>
+                            </div>
+                          </div>
+                      
+                        <br/>
+                        <label for="quantidade"  class="text-monospace " >Quantidade</label>
+                        <input class="form-control" type="number" id="quantidade" name="quantidade" />
+                        <br/><br/>
+                    
+                        <label for="quantidade"  class="text-monospace " >Categorias</label>
+                          <select class="custom-select"  name="categoria" id="categoria">
+                            <option selected>Selecione ...</option>
+                            <option value="eletronicos">Eletronico</option>
+                            <option value="moveis">Moveis</option>
+                            <option value="brinquedos">Brinquedos</option>
+                            <option value="pets">Pets</option>
+                            <option value="esportes">Esporte</option>
+                            <option value="eletronicos">Eletrodomestico</option>
+                            <option value="outros">Outros</option>
+                          </select>
+                          <br/><br/>
+                          <label for="exampleFormControlTextarea1">Observações</label>
+                          <textarea class="form-control"  name="descricao" id="exampleFormControlTextarea1" rows="3"></textarea>
+                         <br/><br/><br/><br/>
+                        <button type="submit"   class="btn btn-outline-success mt-3"  > Cadastro </button>         
+               </form> 
+            </div>
+        </div>   
+    </div>
+
+    <br/><br/>
+    <h1>Relatorio atualizado</h1>
+<div class="container ">
+    <table class="table table-striped container ">
+        <!--cabeçario-->
+        <thead>
+            <th class="text-light bg-dark">Cd. cadastro</th>
+            <th>Nome</th>
+            <th class="text-light bg-dark">Categoria</th>
+            <th>Quantidade</th>
+            <th class="text-light bg-dark">Valor Unitario</th>
+            <th>Descrição</th>
+        </thead>
+        <tbody> 
+            <% for(let i=0; i<dados.length; i++){  %>       
+                <tr>
+                    <td class="text-light bg-dark"><%=dados[i].id_produtos%></td>
+                    <td> <%=dados[i].nome%>   
+                        <form action="/produtos/id=<%=dados[i].id_produtos%>"  method="post" >
+                        <button class="btn  btn-outline-danger mt-3" type="submit" > Delete</button>
+                        </form> 
+                    </td>
+                    <td class="text-light bg-dark"><%=dados[i].categoria%> </td>
+                    <td><%=dados[i].quantidade%></td>
+                    <td class="text-light bg-dark"><%=dados[i].valor_unitario%></td>
+                    <td><%=dados[i].descricao%></td>       
+                </tr>      
+                <% } %>
+        </tbody>
+    </table>
+</div> 
+
+</body>
+</html>
+
+
